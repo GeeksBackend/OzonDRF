@@ -1,25 +1,15 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.viewsets import GenericViewSet
+from rest_framework import mixins
 
 from apps.shops.models import Shop
 from apps.shops.serializers import ShopSerializer
 
 # Create your views here.
-class ShopListAPIView(ListAPIView):
-    queryset = Shop.objects.all()
-    serializer_class = ShopSerializer
-
-class ShopCreateAPIView(CreateAPIView):
-    queryset = Shop.objects.all()
-    serializer_class = ShopSerializer
-
-class ShopRetrieveAPIView(RetrieveAPIView):
-    queryset = Shop.objects.all()
-    serializer_class = ShopSerializer
-
-class ShopUpdateAPIView(UpdateAPIView):
-    queryset = Shop.objects.all()
-    serializer_class = ShopSerializer
-
-class ShopDestroyAPIView(DestroyAPIView):
-    queryset = Shop.objects.all()
+class ShopViewSet(GenericViewSet,
+                  mixins.ListModelMixin,
+                  mixins.RetrieveModelMixin,
+                  mixins.CreateModelMixin,
+                  mixins.UpdateModelMixin,
+                  mixins.DestroyModelMixin):
+    queryset = Shop.objects.all() #Django ORM. SELECT * FROM shops_shop;
     serializer_class = ShopSerializer
