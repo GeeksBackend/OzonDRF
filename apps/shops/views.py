@@ -17,6 +17,7 @@ class ShopViewSet(GenericViewSet,
     serializer_class = ShopSerializer
 
     def get_permissions(self):
+        print(self.action)
         if self.action in ("update", "partial_update", "destroy"):
             return (ShopPermission(), )
         return (AllowAny(), )
